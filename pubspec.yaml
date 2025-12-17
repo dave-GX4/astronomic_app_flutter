@@ -1,0 +1,40 @@
+name: app_rest
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # States
+  provider: ^6.0.0
+
+  # Routing
+  go_router: ^13.0.0
+
+  # Networking
+  http: ^1.5.0
+
+  # Archivo .env
+  flutter_dotenv: ^6.0.0
+
+  # Icons
+  cupertino_icons: ^1.0.8
+
+  # Guardado local seguro
+  flutter_secure_storage: ^9.0.01
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+  - .env
+  - assets/image/
