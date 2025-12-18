@@ -1,4 +1,3 @@
-import 'package:app_rest/core/utils/app_resources.dart';
 import 'package:app_rest/features/user/presentation/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
