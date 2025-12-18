@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -317,3 +318,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     }
   }
 }
+=======
+Si se utiliza este proyecto procura dar credito que me costo hacerlo >:v
+>>>>>>> 49099aa41470a86f596d6b175cd44f956e9341b3
