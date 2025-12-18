@@ -17,8 +17,6 @@ class ProfileProvider with ChangeNotifier {
     required DeleteAccountUseCase deleteAccountUseCase,
   })  : _getProfileUseCase = getProfileUseCase, _logoutUseCase = logoutUseCase, _deleteAccountUseCase = deleteAccountUseCase;
 
-  //final nameController = TextEditingController();
-  //final emailController = TextEditingController();
   User? _user; 
   bool _isLoading = false;
   String? _errorMessage;
@@ -75,11 +73,4 @@ class ProfileProvider with ChangeNotifier {
       return false;
     }
   }
-  
-  /*@override
-  void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    super.dispose();
-  }*/
 }

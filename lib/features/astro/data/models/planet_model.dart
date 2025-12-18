@@ -20,7 +20,7 @@ class PlanetModel extends Planet{
       name: json['name']?.toString() ?? '',
       description: json['description']?.toString() ?? '',
       image: json['image']?.toString() ?? '',
-      category: json['category']?.toString() ?? '',
+      category: 'Planeta',
       typePlanet: json['typePlanet']?.toString() ?? '',
       radius: _parseToDouble(json['radius']),
       gravity: _parseToDouble(json['gravity']),

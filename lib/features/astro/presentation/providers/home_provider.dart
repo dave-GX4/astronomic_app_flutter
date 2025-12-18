@@ -1,4 +1,3 @@
-
 import 'package:app_rest/features/astro/domain/usecases/get_planet_of_day_use_case.dart';
 import 'package:app_rest/features/astro/domain/entities/planent.dart';
 import 'package:app_rest/features/astro/domain/usecases/get_all_planets_use_case.dart';
@@ -24,9 +23,9 @@ class HomeProvider with ChangeNotifier {
     List<Planet> list = _allPlanets;
 
     if (_selectedCategory != 'Todos') {
-      list = list.where((planet) => 
-        planet.category.toLowerCase() == _selectedCategory.toLowerCase()
-      ).toList();
+      list = list.where((planet) {
+        return planet.category == _selectedCategory;
+      }).toList();
     }
 
     if (_searchQuery.isNotEmpty) {
@@ -40,6 +39,7 @@ class HomeProvider with ChangeNotifier {
   Planet? get featuredPlanet => _featuredPlanet;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
+  String get selectedCategory => _selectedCategory;
 
   Future<void> loadHomeData() async {
     _isLoading = true;

@@ -12,22 +12,29 @@ class PersonalInfoSection extends StatelessWidget {
     final provider = context.watch<ProfileProvider>();
     final user = provider.user;
 
+    String _getValidText(String? value, String defaultText) {
+      if (value == null || value.trim().isEmpty) {
+        return defaultText;
+      }
+      return value;
+    }
+
     if (provider.isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(child: CircularProgressIndicator());
     }
 
     if (provider.errorMessage != null) {
       return Center(
         child: Column(
           children: [
-            const Icon(Icons.error_outline, color: Colors.red, size: 40),
+            Icon(Icons.error_outline, color: Colors.red, size: 40),
             Text(
               "Error: ${provider.errorMessage}",
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.red),
             ),
             ElevatedButton(
               onPressed: () => provider.loadUserProfile(),
-              child: const Text("Reintentar"),
+              child: Text("Reintentar"),
             )
           ],
         ),
@@ -51,21 +58,21 @@ class PersonalInfoSection extends StatelessWidget {
         
         _buildFieldLabel("Nombre Completo"),
         _buildInfoContainer(
-          value: user?.name ?? "No disponible",
+          value: _getValidText(user?.name, "Nombre no disponible"),
           icon: Icons.person_outline
         ),
         SizedBox(height: 16),
 
         _buildFieldLabel("Email"),
         _buildInfoContainer(
-          value: user?.email ?? "No disponible",
+          value: _getValidText(user?.email, "Email no disponible"),
           icon: Icons.email_outlined
         ),
         SizedBox(height: 16),
 
         _buildFieldLabel("Constelación Favorita"),
-        _buildDropdownSimulation(
-          value: "Orión",
+        _buildInfoContainer(
+          value: _getValidText(user?.constellation, "Sin Favoritos"),
           icon: Icons.star_outline,
         ),
       ],
@@ -98,52 +105,16 @@ class PersonalInfoSection extends StatelessWidget {
       child: Row(
         children: [
           Icon(icon, color: Colors.grey, size: 22),
-          const SizedBox(width: 12),
+          SizedBox(width: 12),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
               overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDropdownSimulation({
-    required String value,
-    required IconData icon,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0xFF1f293b), // input-dark
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.grey, size: 22),
-          SizedBox(width: 12),
-          Expanded(
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: value,
-                dropdownColor: Color(0xFF1f293b),
-                icon: Icon(Icons.expand_more, color: Colors.grey),
-                style: TextStyle(color: Colors.white, fontSize: 16),
-                onChanged: (newValue) {},
-                items: AppResources.slected.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
             ),
           ),
         ],

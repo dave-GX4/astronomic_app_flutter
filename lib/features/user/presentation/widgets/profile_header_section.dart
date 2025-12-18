@@ -1,10 +1,26 @@
+import 'package:app_rest/features/user/presentation/provider/profile_provider.dart';
+import 'package:app_rest/features/user/presentation/widgets/animated_tags_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileHeaderSection extends StatelessWidget {
   const ProfileHeaderSection({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<ProfileProvider>();
+    final user = provider.user;
+
+    final List<String> userTags = (user?.tags ?? [])
+      .where((tag) => tag.trim().isNotEmpty)
+      .toList();
+
+    final displayTags = userTags.isEmpty ? ["EXPLORADOR DE NEBULOSAS"] : userTags;
+
+    if (provider.isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(top: 32, bottom: 40),
@@ -37,7 +53,7 @@ class ProfileHeaderSection extends StatelessWidget {
                     )
                   ],
                   image: DecorationImage(
-                    image: NetworkImage("https://lh3.googleusercontent.com/aida-public/AB6AXuBb9zi3WXhX5__SAKmRx9hYczJzH_mG0srPwuFAXwFEZFqVFq9gaAh4tiBXBiqCNEZv2FxmLAaOYfttlkki1PUmgL5RA8IqiKw8xU11ltgY2crZ5BLNE_ar5L4d__uuLNVVhaZCHkXPL_KmbUpdp-fyfnsoH3YBcRmdJ2Kl_-0lCjwUR09eDc9dhk8AdzG_Cq0e0EZdov71DoxKO_lKiJ7vaPNbQdPf9tOKzMBC5bD5esEw-P_u023DrtdcCnJXZLslqJIUdYT0KIU"),
+                    image: NetworkImage(user?.image ?? 'https://images.unsplash.com/photo-1636819488537-a9b1ffb315ce?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -63,7 +79,7 @@ class ProfileHeaderSection extends StatelessWidget {
           SizedBox(height: 16),
           
           Text(
-            "Juan Pérez",
+            user?.name ?? "No disponible",
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -71,20 +87,16 @@ class ProfileHeaderSection extends StatelessWidget {
               letterSpacing: -0.5,
             ),
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: 6),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.verified, color: Color(0xFF135bec), size: 18),
               SizedBox(width: 6),
-              Text(
-                "EXPLORADOR DE NEBULOSAS",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
+              Flexible(
+                child: AnimatedTagsViewer(
+                  tags: displayTags,
                 ),
               ),
             ],

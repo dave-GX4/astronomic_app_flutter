@@ -28,6 +28,12 @@ dependencies:
   # Guardado local seguro
   flutter_secure_storage: ^9.0.01
 
+  #inyeccion de dependencias
+  get_it: ^9.2.0
+
+  #cahe para imagenes
+  cached_network_image: ^3.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -36,5 +42,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - .env
   - assets/image/
+  
+  - .env

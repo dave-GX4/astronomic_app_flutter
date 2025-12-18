@@ -1,3 +1,4 @@
+import 'package:app_rest/core/router/routes.dart';
 import 'package:app_rest/features/user/presentation/provider/profile_provider.dart';
 import 'package:app_rest/features/user/presentation/widgets/account_settings_section.dart';
 import 'package:app_rest/features/user/presentation/widgets/delete_account_section.dart';
@@ -47,6 +48,32 @@ class _ProfilePageState extends State<ProfilePage> {
             fontSize: 18,
           ),
         ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              final provider = context.read<ProfileProvider>();
+
+              if (provider.user != null) {
+                final result = await context.pushNamed(
+                  Routes.editProfile, 
+                  extra: provider.user
+                );
+
+                if (result == true && context.mounted) {
+                  provider.loadUserProfile();
+                }
+              }
+            }, 
+            child: Text(
+              'Editar Datos',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14
+              ),
+            )
+          )
+        ],
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1.0),
           child: Container(
@@ -57,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.fromLTRB(24, 0, 24, 16),
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

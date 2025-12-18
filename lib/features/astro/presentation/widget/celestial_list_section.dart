@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CelestialCard extends StatelessWidget {
@@ -39,23 +40,17 @@ class CelestialCard extends StatelessWidget {
               topLeft: Radius.circular(16),
               topRight: Radius.circular(16),
             ),
-            child: Image.network(
-              imageUrl,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
               height: 180,
               width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  height: 180,
-                  width: double.infinity,
-                  color: Color(0xFF232f48),
-                  child: Center(
-                    child: Icon(Icons.image_not_supported_outlined, 
-                      color: Colors.white24, size: 40),
-                  ),
-                );
-              },
-            ),
+              placeholder: (context, url) => LinearProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                minHeight: 5.0,
+              ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            )
           ),
 
           Padding(

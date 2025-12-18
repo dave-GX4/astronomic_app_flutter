@@ -159,9 +159,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      _isSearchActive 
-                          ? "Resultados (${providerWatch.filteredPlanets.length})"
-                          : "Cuerpos Celestes",
+                      _isSearchActive ? "Resultados (${providerWatch.filteredPlanets.length})" : "${providerWatch.selectedCategory}", 
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
