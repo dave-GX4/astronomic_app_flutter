@@ -14,6 +14,6 @@ class Routes{
   static const String editProfilePath = '/editProfile';
   static const String editProfile = 'editProfile';
 
-  static const String astroItemPath = '/astroItem';
+  static const String astroItemPath = '/astroItem/:id';
   static const String astroItem = 'astroItem';
 }

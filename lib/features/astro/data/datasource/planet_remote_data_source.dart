@@ -8,6 +8,7 @@ import 'package:app_rest/features/astro/data/models/planet_model.dart';
 abstract class PlanetRemoteDataSource {
   Future<List<PlanetModel>> getPlanets();
   Future<PlanetModel> getPlanetOfTheDay();
+  Future<PlanetModel> getByIdPlanet(String id);
 }
 
 class PlanetRemoteDataSourceImpl implements PlanetRemoteDataSource{
@@ -54,6 +55,7 @@ class PlanetRemoteDataSourceImpl implements PlanetRemoteDataSource{
   @override
   Future<PlanetModel> getPlanetOfTheDay() async {
     final url = Uri.parse('$apiUrl/api/v1/planet/ofTheDay');
+
     try {
       final response = await client.get(url);
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -76,6 +78,24 @@ class PlanetRemoteDataSourceImpl implements PlanetRemoteDataSource{
         rethrow;
       }
       throw ServerException(message: e.toString());
+    }
+  }
+  
+  @override
+  Future<PlanetModel> getByIdPlanet(String id) async {
+    final url = Uri.parse('$apiUrl/api/v1/planet/$id');
+
+    try {
+      final response = await client.get(url);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> json = jsonDecode(response.body);
+        return PlanetModel.fromJson(json);
+      } else {
+        throw Exception('Error al cargar planeta: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 }

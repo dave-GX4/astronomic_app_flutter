@@ -17,4 +17,7 @@ class NetworkException implements Exception {
 class DataParsingException implements Exception {
   final String message;
   DataParsingException({required this.message});
+
+  @override
+  String toString() => message;
 }

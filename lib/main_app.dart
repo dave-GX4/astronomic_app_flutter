@@ -1,5 +1,9 @@
 import 'package:app_rest/core/di/di.dart';
 import 'package:app_rest/core/router/router.dart';
+import 'package:app_rest/features/astro/domain/usecases/get_all_moons_by_planet_use_case.dart';
+import 'package:app_rest/features/astro/domain/usecases/get_all_moons_use_case.dart';
+import 'package:app_rest/features/astro/domain/usecases/get_by_id_planet_use_case.dart';
+import 'package:app_rest/features/astro/presentation/providers/planet_details_provider.dart';
 import 'package:app_rest/features/user/domain/usecases/logout_use_case.dart';
 import 'package:app_rest/features/auth/domain/usecases/createUser_usecase.dart';
 import 'package:app_rest/features/auth/domain/usecases/verifyUser_usecase.dart';
@@ -23,8 +27,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // Inyectamos usando sl<Clase>()
         ChangeNotifierProvider(
-          // Inyectamos usando sl<Clase>()
           create: (_) => RegistreProvider(sl<CreateuserUsecase>()),
         ),
         ChangeNotifierProvider(
@@ -33,7 +37,14 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => HomeProvider(
             getAllPlanetsUseCase: sl<GetAllPlanetsUseCase>(),
-            getPlanetOfDayUseCase: sl<GetPlanetOfDayUseCase>(),
+            getPlanetOfDayUseCase: sl<GetPlanetOfDayUseCase>(), 
+            getAllMoonsUseCase: sl<GetAllMoonsUseCase>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AstroItemProvider(
+            getByIdPlanetUseCase: sl<GetByIdPlanetUseCase>(), 
+            getAllMoonsByPlanetUseCase: sl<GetAllMoonsByPlanetUseCase>(),
           ),
         ),
         ChangeNotifierProvider(

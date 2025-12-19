@@ -1,5 +1,7 @@
+import 'package:app_rest/core/router/routes.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CelestialCard extends StatelessWidget {
   final String title;
@@ -7,14 +9,16 @@ class CelestialCard extends StatelessWidget {
   final String description;
   final String rating;
   final String imageUrl;
+  final String id;
 
-  const CelestialCard({
+  const CelestialCard ({
     super.key,
     required this.title,
     required this.subtitle,
     required this.description,
     required this.rating,
     required this.imageUrl,
+    required this.id
   });
 
   @override
@@ -134,7 +138,9 @@ class CelestialCard extends StatelessWidget {
                     
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pushNamed(Routes.astroItem, pathParameters: {'id': id});
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF1f293b),
                           foregroundColor: Color(0xFF135bec),

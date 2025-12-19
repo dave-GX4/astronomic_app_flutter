@@ -11,7 +11,10 @@ class PlanetModel extends Planet{
     required super.radius, 
     required super.gravity, 
     required super.temperature, 
-    required super.atmosphere
+    required super.atmosphere,
+    required super.dayLength,
+    required super.planetNumber,
+    required super.moonCount,
   });
 
   factory PlanetModel.fromJson(Map<String, dynamic> json) {
@@ -25,8 +28,10 @@ class PlanetModel extends Planet{
       radius: _parseToDouble(json['radius']),
       gravity: _parseToDouble(json['gravity']),
       temperature: _parseToDouble(json['temperature']),
-      
       atmosphere: json['atmosphere']?.toString() ?? '',
+      dayLength: _parseToDouble(json['day_length']),
+      planetNumber: _parseToInt(['planet_number']),
+      moonCount: _parseToInt(json['moon_count'])
     );
   }
 
@@ -37,5 +42,15 @@ class PlanetModel extends Planet{
       return double.tryParse(value) ?? 0.0;
     }
     return 0.0;
+  }
+
+  static int _parseToInt(dynamic value) {
+    if (value == null) return 0;
+    if (value is int) return value;
+    if (value is double) return value.toInt();
+    if (value is String) {
+      return int.tryParse(value) ?? 0;
+    }
+    return 0;
   }
 }

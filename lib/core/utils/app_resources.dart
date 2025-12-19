@@ -1,10 +1,12 @@
 class AppResources {
   static const List<String> categories = [
     "Todos",
+    "Luna",
     "Planeta",
     "Estrella",
     "Galaxia",
-    "Nebulosa"
+    "Nebulosa",
+    "Agujeros Negro"
   ];
 
   static const List<String> slected = [
@@ -34,5 +36,24 @@ class AppResources {
     "Entusiasta de Agujeros Negros",
     "Observador Lunar",
     "Astrofísico Amateur"
+  ];
+
+  static const List<String> solarSystemPlanets = [
+    'mercurio', 
+    'venus', 
+    'tierra', 
+    'marte', 
+    'júpiter', 
+    'saturno', 
+    'urano', 
+    'neptuno'
+  ];
+
+  static const List<String> solarSystemPlanetsLittle = [
+    'Ceres',
+    'Plutón',
+    'Haumea',
+    'Makemake',
+    'Eris',
   ];
 }

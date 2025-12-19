@@ -18,4 +18,10 @@ class PlanetRepositoryImpl implements PlanetsRepository {
     final model = await remoteDataSource.getPlanetOfTheDay();
     return model;
   }
+  
+  @override
+  Future<Planet> getByIdPlanet(String id) async {
+    final model = await remoteDataSource.getByIdPlanet(id);
+    return model;
+  }
 }

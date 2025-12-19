@@ -53,7 +53,7 @@ class ProfileHeaderSection extends StatelessWidget {
                     )
                   ],
                   image: DecorationImage(
-                    image: NetworkImage(user?.image ?? 'https://images.unsplash.com/photo-1636819488537-a9b1ffb315ce?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                    image: NetworkImage(user?.image ?? 'https://drive.google.com/drive/u/0/folders/1_W9iKwVExrygGXe-gDrQNEmFBeldfpCU'),
                     fit: BoxFit.cover,
                   ),
                 ),

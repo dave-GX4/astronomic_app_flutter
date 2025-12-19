@@ -1,7 +1,13 @@
+import 'package:app_rest/features/astro/data/datasource/moon_remote_data_source.dart';
 import 'package:app_rest/features/astro/data/datasource/planet_remote_data_source.dart';
+import 'package:app_rest/features/astro/data/repositories/moon_repository_impl.dart';
 import 'package:app_rest/features/astro/data/repositories/planet_repository_impl.dart';
+import 'package:app_rest/features/astro/domain/repositories/moons_repository.dart';
 import 'package:app_rest/features/astro/domain/repositories/planets_repository.dart';
+import 'package:app_rest/features/astro/domain/usecases/get_all_moons_by_planet_use_case.dart';
+import 'package:app_rest/features/astro/domain/usecases/get_all_moons_use_case.dart';
 import 'package:app_rest/features/astro/domain/usecases/get_all_planets_use_case.dart';
+import 'package:app_rest/features/astro/domain/usecases/get_by_id_planet_use_case.dart';
 import 'package:app_rest/features/astro/domain/usecases/get_planet_of_day_use_case.dart';
 import 'package:app_rest/features/auth/data/datasources/auth_local_data_source.dart';
 import 'package:app_rest/features/auth/data/datasources/auth_remote_data_source.dart';
@@ -31,6 +37,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetProfileUseCase(sl()));
   sl.registerLazySingleton(() => DeleteAccountUseCase(sl()));
   sl.registerLazySingleton(() => LogoutUseCase(sl()));
+  sl.registerLazySingleton(() => GetByIdPlanetUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllMoonsByPlanetUseCase(sl()));
+  sl.registerLazySingleton(() => GetAllMoonsUseCase(sl()));
 
   // Repositories
   sl.registerLazySingleton<AuthRepository>(
@@ -41,6 +50,9 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<PlanetsRepository>(
     () => PlanetRepositoryImpl(remoteDataSource: sl()),
+  );
+  sl.registerLazySingleton<MoonsRepository>(
+    () => MoonRepositoryImpl(remoteDataSource: sl())
   );
 
   // Data Sources
@@ -55,6 +67,9 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<PlanetRemoteDataSource>(
     () => PlanetRemoteDataSourceImpl(),
+  );
+  sl.registerLazySingleton<MoonRemoteDataSource>(
+    () => MoonRemoteDataSourceImpl()
   );
 
   // Core

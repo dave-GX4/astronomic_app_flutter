@@ -1,6 +1,8 @@
+import 'package:app_rest/core/router/routes.dart';
 import 'package:app_rest/features/astro/domain/entities/planent.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class FeaturedSection extends StatelessWidget {
   final Planet planet;
@@ -24,13 +26,32 @@ class FeaturedSection extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Ver todo",
-                  style: TextStyle(
-                    color: Color.fromARGB(211, 19, 91, 236),
-                    fontWeight: FontWeight.bold,
+              InkWell(
+                onTap: () {
+                  // Acción de noticias
+                  print("Ir a noticias");
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF135bec).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Color(0xFF135bec).withOpacity(0.5)),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.newspaper_rounded, size: 16, color: Color(0xFF64b5f6)),
+                      SizedBox(width: 6),
+                      Text(
+                        "Nuevos Hallazgos",
+                        style: TextStyle(
+                          color: Color(0xFF64b5f6),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -66,12 +87,7 @@ class FeaturedSection extends StatelessWidget {
                       fit: BoxFit.cover,
                       height: 180,
                       width: double.infinity,
-                      placeholder: (context, url) => SizedBox(
-                        child: LinearProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                          minHeight: 10.0,
-                        ),
-                      ),
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
@@ -118,7 +134,9 @@ class FeaturedSection extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.pushNamed(Routes.astroItem, pathParameters: {'id': planet.id});
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFF135bec),
                               shape: RoundedRectangleBorder(
@@ -127,10 +145,7 @@ class FeaturedSection extends StatelessWidget {
                             ),
                             child: Text(
                               "Ver Detalles", 
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
-                              )
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)
                             ),
                           ),
                         ),

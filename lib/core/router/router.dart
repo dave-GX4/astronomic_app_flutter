@@ -1,4 +1,5 @@
 import 'package:app_rest/core/router/routes.dart';
+import 'package:app_rest/features/astro/presentation/page/planet_details__page.dart';
 import 'package:app_rest/features/auth/presentation/page/login_page.dart';
 import 'package:app_rest/features/auth/presentation/page/registration_page.dart';
 import 'package:app_rest/features/astro/presentation/page/home_page.dart';
@@ -37,6 +38,14 @@ class AppRouter{
         builder: (context, state) {
           final userToSend = state.extra as User; 
           return EditProfilePage(user: userToSend);
+        },
+      ),
+      GoRoute(
+        path: Routes.astroItemPath,
+        name: Routes.astroItem,
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return PlanetDetailsPage(planetId: id);
         },
       ),
     ]
